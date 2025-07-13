@@ -16,7 +16,7 @@
    let abcd: number; <br>
    const lmn = 5 //constant lmn contains value 5
 ##### output file with code
-   let abcd: number;
+   let abcd: number;<br>
    const lmn = 5
 ##### output file with comments
    //abcd is a varible of type number <br>
