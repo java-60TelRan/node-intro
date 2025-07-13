@@ -1,2 +1,2 @@
 import { readFile, writeFile } from 'node:fs/promises';
-readFile(process.argv[1] , {encoding: "utf8"}).then(content => console.log(content)).catch(er => console.log(er.message))
+writeFile("hello.txt", "Hello World").then(() => console.log("file created")).catch(er => console.log(er.message))
