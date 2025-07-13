@@ -23,7 +23,7 @@ function getParams(): Params {
     if (maxValue <= minValue) {
         throw new Error("Maximal value (argument #3) must be greater than Minimal value (argument #2)")
     };
-    if (nNumbers > maxValue - minValue) {
+    if (nNumbers > maxValue - minValue + 1) {
         throw new Error("Amount of the unique random numbers (argument #1) must be equal or less than difference between maximal value (argument #3) and minimal value (argument #2)")
     }
     return {nNumbers, minValue, maxValue}
