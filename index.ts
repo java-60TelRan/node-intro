@@ -8,8 +8,9 @@ const DEFAULT_N_NUMBERS = 7;
 const DEFAULT_MIN_VALUE = 1;
 const DEFAULT_MAX_VALUE = 49;
 try {
-    const params = getParams();
-    printUniqueRandomValues(params)
+    const params: Params = getParams();
+    const numbers: number[] = getUniqueRandomNumbers(params);
+    printNumbers(numbers);
 
 } catch (error) {
     console.log(error.message)
@@ -62,9 +63,9 @@ function getMaxValue(param: string | undefined): number {
    }
    return maxValue;
 }
-function printUniqueRandomValues(params: Params): void {
-    const numbers: number[] = getUniqueRandomNumbers(params);
-    console.log(numbers)
+function printNumbers(numbers:number[]): void {
+   
+    console.log(numbers.join("; "))
 }
 function getUniqueRandomNumbers({nNumbers, minValue, maxValue}): number[] {
     let length = 0;
