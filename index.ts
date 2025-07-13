@@ -1,2 +1,13 @@
 import { readFile, writeFile } from 'node:fs/promises';
-writeFile("hello.txt", "Hello World").then(() => console.log("file created")).catch(er => console.log(er.message))
+async function printFile(path: string) {
+    const content = await readFile(path, {encoding: "utf8"});
+    console.log(content)
+
+}
+async function writeToFile(path: string, content: string) {
+    writeFile(path, content);
+}
+(async () => {
+    await writeToFile("hello1.txt", "Hello Universe");
+    await printFile("hello1.txt")
+})();
