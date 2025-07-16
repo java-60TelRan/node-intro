@@ -1,13 +1,6 @@
-import EventEmitter from "events";
-const emitter = new EventEmitter();
-emitter.on("message", (arg: string) =>{
-    if(arg.toLowerCase().includes("hello")) {
-        throw new Error("get tiered from 'hello'")
-    }
-})
-emitter.on("message", (arg: any) => console.log("event message emitted", `message contains ${arg}`))
-emitter.on("message", (arg: string) => console.log(`length of message is ${arg.length}`))
-console.log(emitter.eventNames());
-emitter.emit("message","kukureku");
-emitter.emit("message", "Hell world")
-
+import Logger from "./Logger.ts";
+import fs from "node:fs"
+const logger = new Logger();
+logger.addHandlerMessage((obj) => console.log(obj.message));
+logger.addHandlerLevel("debug", (message) => fs.writeFileSync("logs.txt", '\n' + message, {flag:"a"}))
+logger.log("debug", "kukureku");
