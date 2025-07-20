@@ -1,6 +1,6 @@
-import Logger from "./Logger.ts";
-import fs from "node:fs"
-const logger = new Logger();
-logger.addHandlerMessage((obj) => console.log(obj.level.toUpperCase(), obj.message));
-logger.log("info", "kukureku");
-logger.log("info", "again kukureku");
+import { readFile } from "fs/promises";
+async function readFileAndSize(path: string): Promise<number> {
+    const content = await readFile(path, {encoding: 'binary'});
+    return content.length
+}
+readFileAndSize("large_file").then(length => console.log(length));
