@@ -4,4 +4,4 @@
 ### 2. Where should be done getting params from the configuration
 ### 3. Where should be done validation
 ### 4. Single errors handling
-### 5. Try to work out the simplest and reusable possible solution (Hint: using types parametrization)
+### 5. Try to work out the simplest and reusable possible solution
