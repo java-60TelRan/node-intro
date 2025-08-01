@@ -1,7 +1,6 @@
 import {NextFunction, Request, Response} from 'express'
 export function validation(req: Request & {error: Error}, res: Response, next: NextFunction) {
     const obj: any = req.body ?? req.params;
-    console.log(obj)
     try {
         dataValidation(obj);
         obj.op1 = +obj.op1;
