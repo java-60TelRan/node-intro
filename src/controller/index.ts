@@ -1,47 +1,20 @@
-
-import { validation } from '../middleware/validation.ts';
-import CalculationData from '../model/CalculationData.ts';
-import calculator, { WrongOperationError } from '../service/calculator.ts'
-import express ,{Response, Request} from 'express'
-
-const port = 3500;
-
-
-
-
+import rateLimit from "express-rate-limit";
+import express, { Request, Response, NextFunction } from 'express'
+import { requestTime } from "../middleware/request-time.ts";
 const app = express();
-app.listen(port);
-app.use(express.json());
-app.use(validation)
-app.post("/api/calculator", (req: Request & {error: Error}, res: Response) => {
- try {
-   if(!req.body) {
-      throw req.error
-   }
-    const result = calculator.calculate(req.body as CalculationData)
-    sendResponse(res, 200, result);
- } catch (error) {
-   const status = error instanceof WrongOperationError ? 404 : 400;
-   sendResponse(res, status, error.message)
+const port = 3500;
+app.listen(port, () => console.log("server is listening on port " + port));
 
- }
+//third party middleware - specified in controller but not in the middleware folder
+const limitRequests = rateLimit({
+   max: 3,
+   windowMs: 60 * 1000,
+   message: "Too Many Requests"
 })
-app.get("/api/calculator/:operation/:op1/:op2", validation, (req: Request & {error: Error}, res: Response) => {
-   try {
-      if(!req.body) {
-      throw req.error
-   } 
-    const result = calculator.calculate(req.params as any)
-    sendResponse(res, 200, result);
- } catch (error) {
-   const status = error instanceof WrongOperationError ? 404 : 400;
-   sendResponse(res, status, error.message)
-
- }
-
+app.use(requestTime)
+app.post("/api/greet", limitRequests, (req: Request& {requestedAt: string}, res: Response) => {
+   res.json({message: "Hello!", requestedAt: req.requestedAt});
 })
-function sendResponse(res: Response, status: number, result: number | string) {
-      res.statusCode = status;
-      res.send(result)
-}
-
+app.get("/api/status", (req: Request& {requestedAt: string}, res: Response) => {
+   res.json({status: "Up and Running", requestedAt: req.requestedAt});
+} )
