@@ -1,5 +1,5 @@
 import rateLimit from "express-rate-limit";
-import express, { Request, Response, NextFunction } from 'express'
+import express, { Request, Response } from 'express'
 import { requestTime } from "../middleware/request-time.ts";
 const app = express();
 const port = 3500;
